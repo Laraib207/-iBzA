@@ -29,10 +29,13 @@ def create_user(db, user: UserCreate):
 from core.security import verify_password
 
 
-def authenticate_user(db, email: str, password: str):
+def authenticate_user(db, identifier: str, password: str):
     users = db["users"]
 
-    user = users.find_one({"email": email})
+    # allow login with either email or username
+    user = users.find_one({"email": identifier})
+    if not user:
+        user = users.find_one({"username": identifier})
     if not user:
         return None
 

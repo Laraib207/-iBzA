@@ -219,23 +219,77 @@
 
 
 
+
+
+
+# from fastapi import FastAPI
+# from fastapi.staticfiles import StaticFiles
+# from pydantic import BaseModel
+# import os
+
+# # ------------------
+# # APP INIT (FIRST!)
+# # ------------------
+# app = FastAPI()
+
+# # ------------------
+# # STATIC FILES
+# # ------------------
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# STATIC_DIR = os.path.join(BASE_DIR, "static")
+
+# app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# # ------------------
+# # MODELS
+# # ------------------
+# class LoginData(BaseModel):
+#     email: str
+#     password: str
+
+# # ------------------
+# # ROUTES
+# # ------------------
+# @app.get("/")
+# def root():
+#     return {"status": "API running"}
+
+# @app.get("/auth/login")
+# def login_info():
+#     return {"message": "Use POST method to login"}
+
+# @app.post("/auth/login")
+# def login(data: LoginData):
+#     return {
+#         "email": data.email,
+#         "message": "Login successful"
+#     }
+
+
+
+
+
+
+
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import os
 
 # ------------------
-# APP INIT (FIRST!)
+# APP INIT
 # ------------------
 app = FastAPI()
 
 # ------------------
-# STATIC FILES
+# STATIC FILES (SAFE)
 # ------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+if os.path.exists(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # ------------------
 # MODELS

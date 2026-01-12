@@ -85,10 +85,15 @@ export default function Navbar() {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex gap-1 text-sm font-medium items-center">
-              {["Services", "Work", "About", "Contact"].map((item, idx) => (
+              {[
+                { name: "Services", href: "/#services" },
+                { name: "Work", href: "/#work" },
+                { name: "About", href: "/about" },
+                { name: "Contact", href: "/#contact" }
+              ].map((item, idx) => (
                 <a
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.href}
                   className={`relative px-5 py-2.5 transition-all duration-300 group overflow-hidden rounded-lg ${
                     theme 
                       ? "text-gray-300 hover:text-white" 
@@ -96,7 +101,7 @@ export default function Navbar() {
                   }`}
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
-                  <span className="relative z-10">{item}</span>
+                  <span className="relative z-10">{item.name}</span>
                   <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ${
                     theme 
                       ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20" 
@@ -204,10 +209,15 @@ export default function Navbar() {
             <div className={`flex flex-col gap-2 pt-4 border-t ${
               theme ? "border-cyan-500/20" : "border-gray-200"
             }`}>
-              {["Services", "Work", "About", "Contact"].map((item, idx) => (
+              {[
+                { name: "Services", href: "/#services" },
+                { name: "Work", href: "/#work" },
+                { name: "About", href: "/about" },
+                { name: "Contact", href: "/#contact" }
+              ].map((item, idx) => (
                 <a
-                  key={item}
-                  href="#"
+                  key={item.name}
+                  href={item.href}
                   className={`relative px-4 py-3 transition-all duration-300 rounded-lg overflow-hidden group ${
                     theme 
                       ? "text-gray-300 hover:text-white" 
@@ -226,7 +236,7 @@ export default function Navbar() {
                         ? "bg-gradient-to-r from-cyan-400 to-purple-400" 
                         : "bg-gradient-to-r from-blue-500 to-purple-500"
                     }`}></span>
-                    {item}
+                    {item.name}
                   </span>
                   <div className={`absolute inset-0 translate-x-full group-hover:translate-x-0 transition-transform duration-300 ${
                     theme 

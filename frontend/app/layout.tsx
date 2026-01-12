@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
 export default function RootLayout({
   children,
@@ -23,6 +24,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="bg-[#0B0D10] text-white antialiased font-['Inter', 'sans-serif']"
       >
+        <Navbar />
         {children}
       </body>
     </html>

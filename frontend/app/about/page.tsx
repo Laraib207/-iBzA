@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function About() {
   return (
     <>
-      <Navbar />
       <main className="min-h-screen bg-[#050505] text-white overflow-hidden font-['Space_Grotesk',sans-serif]">
 
         {/* Hero Section */}

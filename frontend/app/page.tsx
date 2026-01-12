@@ -17,9 +17,9 @@
 
 
 
-import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
 import Services from "@/app/components/Services";
+import Work from "@/app/components/Work";
 import Footer from "@/app/components/Footer";
 
 export default function Home() {
@@ -28,9 +28,9 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
       <Hero />
       <Services />
+      <Work />
       <Footer />
     </>
   );

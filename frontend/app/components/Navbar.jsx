@@ -86,10 +86,10 @@ export default function Navbar() {
             {/* Desktop Menu */}
             <div className="hidden md:flex gap-1 text-sm font-medium items-center">
               {[
-                { name: "Services", href: "#" },
-                { name: "Work", href: "#" },
+                { name: "Services", href: "/#services" },
+                { name: "Work", href: "/#work" },
                 { name: "About", href: "/about" },
-                { name: "Contact", href: "#" }
+                { name: "Contact", href: "/#contact" }
               ].map((item, idx) => (
                 <a
                   key={item.name}
@@ -210,10 +210,10 @@ export default function Navbar() {
               theme ? "border-cyan-500/20" : "border-gray-200"
             }`}>
               {[
-                { name: "Services", href: "#" },
-                { name: "Work", href: "#" },
+                { name: "Services", href: "/#services" },
+                { name: "Work", href: "/#work" },
                 { name: "About", href: "/about" },
-                { name: "Contact", href: "#" }
+                { name: "Contact", href: "/#contact" }
               ].map((item, idx) => (
                 <a
                   key={item.name}

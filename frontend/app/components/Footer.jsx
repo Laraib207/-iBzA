@@ -10,7 +10,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="border-t border-white/10 py-12 bg-[#0B0D10]">
+    <footer id="contact" className="border-t border-white/10 py-12 bg-[#0B0D10]">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
         <div>
           <h3 className="text-xl font-bold text-white">@iBzA</h3>

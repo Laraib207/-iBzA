@@ -271,6 +271,7 @@
 
 
 
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -281,6 +282,19 @@ import os
 # APP INIT
 # ------------------
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://ibza.vercel.app",
+        "https://ibza.onrender.com"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # ------------------
 # STATIC FILES (SAFE)

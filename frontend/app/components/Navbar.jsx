@@ -1,9 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -42,11 +45,46 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button (Simple implementation) */}
-        <button className="md:hidden p-2 text-white">
-          <span className="material-symbols-outlined">menu</span>
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden p-2 text-white z-50 relative"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span className="material-symbols-outlined">
+            {isOpen ? "close" : "menu"}
+          </span>
         </button>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="absolute top-0 left-0 w-full bg-[#050505] z-40 flex flex-col items-center justify-center gap-8 md:hidden overflow-hidden"
+          >
+             {["Services", "Work", "About"].map((item) => (
+              <Link
+                key={item}
+                href={`/#${item.toLowerCase()}`}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-bold font-display text-white hover:text-primary transition-colors"
+              >
+                {item}
+              </Link>
+            ))}
+            <Link
+              href="/#contact"
+              onClick={() => setIsOpen(false)}
+              className="px-8 py-3 text-lg font-bold bg-white text-black rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              Let's Talk
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }

@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { loginRequest } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,27 +20,14 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const data = await loginRequest(email, password);
 
-      const data = await res.json();
+      localStorage.setItem("ibza_token", data.access_token);
+      localStorage.setItem("ibza_user", JSON.stringify(data.user));
+      window.location.href = "/dashboard";
 
-      if (data.message === "Login successful") {
-        localStorage.setItem("ibza_token", data.access_token);
-        localStorage.setItem("ibza_user", JSON.stringify(data.user));
-        window.location.href = "/dashboard";
-        return;
-      }
-
-      setError(data.detail || "Invalid credentials");
-    } catch (e) {
-      setError("Server error");
+    } catch (e: any) {
+      setError(e.message || "Authentication failed");
     } finally {
       setLoading(false);
     }

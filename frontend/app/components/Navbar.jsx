@@ -27,7 +27,7 @@ export default function Navbar() {
           {["Services", "Work", "About"].map((item) => (
             <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={`/#${item.toLowerCase()}`}
               className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
             >
               {item}
@@ -35,7 +35,7 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="#contact"
+            href="/#contact"
             className="px-5 py-2 text-sm font-bold bg-white text-black rounded-full hover:bg-primary hover:text-white transition-all duration-300"
           >
             Let's Talk

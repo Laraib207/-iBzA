@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 
 const Star = ({ className, style }) => (
@@ -122,9 +123,11 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105">
-            Start Mission
-          </button>
+          <Link href="/login">
+            <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105">
+              Start Mission
+            </button>
+          </Link>
           <button className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all duration-300">
             View Protocol
           </button>

@@ -1,82 +1,93 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function Services() {
+  const services = [
+    {
+      title: "UI/UX Architecture",
+      icon: "design_services",
+      desc: "Designing immersive digital habitats that captivate and convert.",
+      color: "text-purple-400",
+    },
+    {
+      title: "Full-Stack Fusion",
+      icon: "code",
+      desc: "Building robust, scalable applications with next-gen frameworks.",
+      color: "text-blue-400",
+    },
+    {
+      title: "Web3 Integration",
+      icon: "token",
+      desc: "Connecting your business to the decentralized future of the web.",
+      color: "text-cyan-400",
+    },
+    {
+      title: "Brand Velocity",
+      icon: "rocket_launch",
+      desc: "Accelerating market presence with strategic identity design.",
+      color: "text-orange-400",
+    },
+  ];
+
   return (
-    <section id="services" className="py-24 bg-[#0B0D10]">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="px-4 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest mb-4">
-            Our Expertise
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Transforming Ideas into Digital Reality
-          </h1>
-
-          <p className="text-[#9d9fb9] text-lg max-w-2xl mx-auto">
-            We combine high-end design with cutting-edge technology to build
-            digital solutions that define industries.
-          </p>
+    <section id="services" className="py-32 relative bg-[#050505] overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]" />
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: "UI/UX Design",
-              icon: "design_services",
-              text: "Crafting intuitive and beautiful user interfaces with precision and user-centric flows.",
-            },
-            {
-              title: "Development",
-              icon: "code",
-              text: "High-performance, scalable web applications built with the latest modern frameworks.",
-            },
-            {
-              title: "Strategy",
-              icon: "insights",
-              text: "Data-driven growth and marketing roadmaps designed to scale your business globally.",
-            },
-            {
-              title: "Branding",
-              icon: "branding_watermark",
-              text: "Distinctive visual stories and brand guidelines for modern, high-impact companies.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-[#1c1c27] rounded-xl p-6 border border-white/10 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300"
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="mb-20 text-center">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl font-bold font-display text-white mb-6"
             >
-              <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 mb-4">
-                <span className="material-symbols-outlined text-primary">
+                Core <span className="text-primary">Capabilities</span>
+            </motion.h2>
+            <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-gray-400 max-w-2xl mx-auto"
+            >
+                Deploying advanced technological solutions across the digital spectrum.
+            </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm relative overflow-hidden"
+            >
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className={`w-14 h-14 rounded-xl bg-black/50 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 ${item.color}`}>
+                <span className="material-symbols-outlined text-3xl">
                   {item.icon}
                 </span>
               </div>
 
-              <h2 className="text-white text-xl font-bold mb-2">
+              <h3 className="text-xl font-bold font-display text-white mb-3 group-hover:text-primary transition-colors">
                 {item.title}
-              </h2>
+              </h3>
 
-              <p className="text-[#9d9fb9] text-sm leading-relaxed">
-                {item.text}
+              <p className="text-sm text-gray-400 leading-relaxed">
+                {item.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-16">
-          <button className="group relative flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 text-white text-base font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(89,102,243,0.4)]">
-            <span className="relative z-10">Start Your Project</span>
-          </button>
-
-          <button className="flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-transparent border-2 border-[#3b3d54] hover:border-primary/50 text-white text-base font-bold transition-all hover:bg-white/5 active:scale-95">
-            View Our Work
-          </button>
         </div>
       </div>
     </section>
   );
 }
-

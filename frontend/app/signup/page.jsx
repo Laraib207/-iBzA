@@ -1,157 +1,125 @@
-// "use client";
-
-// import { motion } from "framer-motion";
-// import { useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { apiRequest } from "@/lib/api";
-
-// export default function SignupPage() {
-//   const router = useRouter();
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState("");
-
-//   async function handleSubmit(e) {
-//     e.preventDefault();
-//     setError("");
-//     setLoading(true);
-
-//     const form = new FormData(e.currentTarget);
-//     const payload = {
-//       username: form.get("username"),
-//       email: form.get("email"),
-//       password: form.get("password"),
-//     };
-
-//     try {
-//       await apiRequest("/auth/signup", {
-//         method: "POST",
-//         body: JSON.stringify(payload),
-//       });
-
-//       router.push("/auth/login");
-//     } catch (err) {
-//       setError(err.message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
-
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0, y: 30 }}
-//       animate={{ opacity: 1, y: 0 }}
-//       transition={{ duration: 0.6 }}
-//       className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
-//     >
-//       <h1 className="text-2xl font-bold text-white text-center">
-//         Join <span className="text-purple-400">@iBzA</span>
-//       </h1>
-
-//       <p className="text-gray-400 text-sm text-center mt-2">
-//         Build next-gen digital experiences with FOSS
-//       </p>
-
-//       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-//         <input
-//           name="username"
-//           placeholder="Username"
-//           required
-//           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500"
-//         />
-
-//         <input
-//           name="email"
-//           type="email"
-//           placeholder="Email"
-//           required
-//           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500"
-//         />
-
-//         <input
-//           name="password"
-//           type="password"
-//           placeholder="Password"
-//           required
-//           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500"
-//         />
-
-//         {error && (
-//           <p className="text-red-400 text-sm text-center">{error}</p>
-//         )}
-
-//         <button
-//           disabled={loading}
-//           className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold shadow-lg hover:scale-[1.02] transition disabled:opacity-60"
-//         >
-//           {loading ? "Creating account..." : "Create Account"}
-//         </button>
-//       </form>
-//     </motion.div>
-//   );
-// }
-
-
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { apiRequest } from "@/lib/api";
 
 export default function SignupPage() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-      {
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      await apiRequest("/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      }
-    );
+        body: JSON.stringify({ username, email, password }),
+      });
 
-    const data = await res.json();
-    setMsg(data.message || "Account created");
-
-    if (res.ok) {
-      setTimeout(() => router.push("/login"), 1500);
+      // Redirect to login on success
+      router.push("/login?registered=true");
+    } catch (e) {
+      setError(e.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0B0D10]">
-      <div className="bg-[#12151C] p-8 rounded-2xl w-[380px]">
-        <h1 className="text-3xl font-bold text-white mb-6 text-center">
-          Create Account ✨
+    <div className="min-h-screen flex items-center justify-center bg-[#050505] relative overflow-hidden">
+       {/* Background Decor */}
+       <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] pointer-events-none" />
+       <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-md p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl"
+      >
+        <Link href="/" className="block text-center mb-8 group">
+            <span className="text-3xl font-bold font-display text-white tracking-tighter group-hover:text-primary transition-colors">@iBzA</span>
+        </Link>
+
+        <h1 className="text-2xl font-bold text-center mb-2 text-white font-display">
+          Initialize Identity
         </h1>
+        <p className="text-gray-400 text-center mb-8 text-sm">
+           Join the decentralized network.
+        </p>
 
-        <input
-          className="w-full p-3 rounded-xl bg-black text-white mb-4"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleSignup} className="space-y-4">
+          <div>
+             <input
+              type="text"
+              className="w-full p-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-secondary transition-colors font-mono text-sm"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
 
-        <input
-          type="password"
-          className="w-full p-3 rounded-xl bg-black text-white mb-4"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <div>
+            <input
+              type="email"
+              className="w-full p-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-secondary transition-colors font-mono text-sm"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <button
-          onClick={handleSignup}
-          className="w-full bg-[#00F5D4] py-3 rounded-xl font-semibold"
-        >
-          Create Account
-        </button>
+          <div>
+            <input
+              type="password"
+              className="w-full p-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-secondary transition-colors font-mono text-sm"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        {msg && <p className="text-green-400 mt-4 text-center">{msg}</p>}
-      </div>
+          {error && (
+            <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-xs text-center font-mono"
+            >
+              Error: {error}
+            </motion.p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-white text-black py-4 rounded-xl font-bold hover:bg-secondary hover:text-white transition-all duration-300 disabled:opacity-50 mt-4"
+          >
+            {loading ? "Registering..." : "Create Account"}
+          </button>
+        </form>
+
+        <p className="text-center text-gray-500 mt-8 text-xs font-mono">
+          Already verified?{" "}
+          <span
+            className="text-secondary cursor-pointer hover:text-white transition-colors underline"
+            onClick={() => router.push("/login")}
+          >
+            Access Terminal
+          </span>
+        </p>
+      </motion.div>
     </div>
   );
 }
-
-

@@ -16,13 +16,17 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
       </head>
       <body 
         suppressHydrationWarning
-        className="bg-[#0B0D10] text-white antialiased font-['Inter', 'sans-serif']"
+        className="bg-[#050505] text-[#e0e0e0] antialiased font-sans"
       >
         <Navbar />
         {children}
@@ -30,4 +34,3 @@ export default function RootLayout({
     </html>
   );
 }
-
